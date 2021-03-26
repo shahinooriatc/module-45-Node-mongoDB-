@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Mongo Database</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
+</head>
+
+<body>
+    <h1>Hello Sir>><span id="man">Man</span> </h1>
+    <div class="container">
+        <div class="row">
+            <input type="text" class="form-control" id="user" placeholder="New User Name">
+            <button class="btn-primary" id="addClick">Add User</button>
+        </div>
+    </div>
+<!-- // -->
+    <script>
+        fetch('http://localhost:3000/users/9')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('man').innerText = data.name;
+            })
+
+        //Post data to server... By addClick Button....
+        const btnClick = document.getElementById('addClick')
+
+        btnClick.addEventListener('click', () => {
+            const name = document.getElementById('user').value;
+            const user = { name }; // to create data json form..
+            document.getElementById('man').innerText = user.name;
+            //Post data to this server Url...
+            fetch('http://localhost:3000/addUser', {
+                method: 'POST',
+                body: JSON.stringify(user),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then(res => res.json())
+                .then(data => (data));
+        })
+    </script>
+</body>
+
+</html>
